@@ -1,7 +1,12 @@
 package sukkiri.lesson10.sample01;
 
-public class SuperHero {
+//10-3
+public class SuperHero extends Hero {
+	
+	/* 差分フィールド*/
 	boolean flying;
+	
+	/*差分フィールド*/
 	public void fly() {
 		this.flying = true;
 		System.out.println("飛び上がった！");

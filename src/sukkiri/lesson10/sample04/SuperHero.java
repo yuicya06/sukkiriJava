@@ -5,6 +5,7 @@ public class SuperHero extends Hero {
 	
 	//10-10
 	public SuperHero() {
+		super();//省略可//なくても暗黙的に呼ばれる※コンストラクタの先頭に記述する必要がある
 		System.out.println("SuperHeroのコンストラクタが動作");
 	}
 	

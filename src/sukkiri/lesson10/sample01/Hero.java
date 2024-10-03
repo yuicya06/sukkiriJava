@@ -1,6 +1,7 @@
 package sukkiri.lesson10.sample01;
 
 public class Hero {
+	//10-1
 	String name = "ミナト";
 	int hp = 100;
 	//戦う
