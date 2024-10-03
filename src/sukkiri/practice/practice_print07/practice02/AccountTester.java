@@ -95,6 +95,11 @@ public class AccountTester {
 	
 		//setDay(person[2].getYear(), person[2].getMonth(), person[2].getDay());
 		
+		
+		
+		//**********************************
+		//.getDay()はAccountクラスのゲッターを呼び出してから
+		//Dayクラスの.shoCreateDate()にアクセスしている
 		person[2].getDay().showCreateDate();
 		
 	}
