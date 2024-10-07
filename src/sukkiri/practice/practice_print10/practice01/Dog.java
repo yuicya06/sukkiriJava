@@ -19,7 +19,7 @@ public class Dog extends Animal {
 	/*constructor*/
 	public Dog(String name, String cry) {
 
-		super("犬");
+		super("犬");//親クラスのコンストラクタは子クラスの始めに書かないとエラー
 		this.name = name;
 		this.cry = cry;
 
@@ -30,11 +30,12 @@ public class Dog extends Animal {
 	//　　　　：親クラスのshowProfileメソッドをオーバーライドし、出力結果例のようにコンソールに表示する。
 	//　　　　　ただし、「カテゴリは～」は親クラスのフィールドにアクセスする。
 	
-	
+	//親クラスの処理内容を再定義（＝オーバーライド）
+	@Override
 	public void showProfile() {
-
+		//メンバ変数にprivateを付けていないので、アクセスにゲッターがいらない
 		System.out.printf("カテゴリは%s\n", super.livingBeings);
-		System.out.println("種は犬です");
+		System.out.printf("種は%sです\n", super.kind);
 		System.out.printf("名前は%s\n", this.name);
 		System.out.printf("鳴き声は%s\n", this.cry);
 	}

@@ -35,8 +35,8 @@ public class Cat extends Animal{
 	
 	public void showProfile() {
 
-		System.out.printf("カテゴリは%s\n", super.livingBeings);
-		System.out.println("種は猫です");
+		super.showProfile();
+		System.out.printf("種は%sです\n", super.kind);
 		System.out.printf("名前は%s\n", this.name);
 		System.out.printf("鳴き声は%s\n", this.cry);
 	}
