@@ -1,5 +1,8 @@
 package sukkiri.lesson11.sample02;
 
+//全ての抽象メソッドを継承した
+//implements: interfaceで実装されている抽象メソッドを全て実装する
+//クラスの継承、interfaceの実装
 public class Fool extends Character implements Human {
 	
 	//Characterからhpやnameなどのフィールドを継承している
