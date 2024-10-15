@@ -1,11 +1,10 @@
-package sukkiri.lesson00.code01;
+package sukkiri.lesson00.code02;
+
+//testtest
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello World");
+		System.out.println("こんにちは");
 	}
-}
 
-//クラスブロック
-/*開始ブロック、閉じブロックをダブルクリックで
-範囲を教えてくれる 複数行にわたるとき */
+}

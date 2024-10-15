@@ -1,5 +1,9 @@
+
 package sukkiri.lesson00.code00;
-//testtest
+
+//2024/10/13
+//2024 2回目
+
 public class Main {
 
 	public static void main(String[] args) {
