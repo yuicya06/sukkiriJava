@@ -4,6 +4,8 @@ public class Hero {
 
 	String name;
 	int hp;
+	
+	static int money;
 
 	/*14-5*/
 	//	Objectクラスの中にtoString()があるので再定義
@@ -17,20 +19,32 @@ public class Hero {
 	public boolean equals(Object o) {
 		//this は h1(自分の)のアドレス oは h2
 		System.out.println("o:" + o);
-		if (this == o) {
+		if (this == o) { //h1 == h2
 			return true;
 		}
 		
 		System.out.println("a");
 		
 		/////////////////////////////////////
-		if (o instanceof Hero h) {
+		//引数で受け取ったObject型の値はそのままだと比較できない
+		//ので、Hero型にダウンキャストして、equals()で比較できるようにする
+		if (o instanceof Hero h) {	//ダウンキャスト（例外：class...exception
 			System.out.println("b");
 			
-			if (this.name.equals(h.name)) {
+			if (this.name.equals(h.name)) { //h1.name.equals(h2.name)
+				System.out.println("c");
 				return true;
 			}
 		}
+		
+		System.out.println("d");
+		return false;
+		/*
+		//エラー
+		if(this.name.equals(o.name) {
+			
+		}
+		*/
 		///////////////////////////////////
 		
 		
@@ -40,8 +54,6 @@ public class Hero {
 //			return true;
 //		}
 		
-		System.out.println("c");
-		return false;
 	}
 
 }

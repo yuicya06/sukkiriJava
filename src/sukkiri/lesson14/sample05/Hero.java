@@ -30,8 +30,11 @@ public class Hero {
 	
 	/*14-13*/
 	public static void setRandomMoney() { //staticを付けたメソッド
+						   //random()は static double でインスタンス不要でクラス名.メソッド名で使用可能（Math.random()）
+						   // Math.random() は0.0 ～ 0.99
 		Hero.money = (int)(Math.random() * 1000);
-	/*14-15*/
+	/*14-15　インスタンス作らなくても呼べるのに、インスタンスにアクセスしようとしているのでエラー　*/
+	/*thisなしなら*/
 		System.out.println(this.name + "たちの所持金を初期化しました");
 	}
 	
