@@ -31,10 +31,14 @@ public class User {
 
 	@Override
 	public boolean equals(Object o) {
-
-		if (o instanceof User u) {
-
-			if (u.name == name && u.age == age) {
+		//参照アドレスが等しければ同じとみなす
+		if(this == o) {
+			return true;
+		}
+		//参照が異なりUser型かどうか調べる
+		if (o instanceof User u) {//User型にキャスト
+			//引数がUser型なので、フィールドの値を比較
+			if (this.name.equals(u.getName()) && this.age == (u.getAge())) {
 
 				return true;
 			}
