@@ -53,7 +53,7 @@ public class EmployeeTester {
 		//		name：のび太
 		//		dept：総務部
 
-				Employee emp = new Employee(201, "のび太", "総務部");
+				Employee emp = new Employee(202, "スネ夫", "総務部");
 				
 				for(int i =0; i < emps.length; i++) {
 					if(emp.equals(emps[i])) {
