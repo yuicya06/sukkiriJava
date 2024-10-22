@@ -15,15 +15,13 @@ public class Calculation {
 	public String div() {
 		try {//計算の処理
 			int result = this.first_num / this.second_num;
-			
-			
-			
-			
+
 			return this.first_num + " / " + this.second_num + " = " + result;
-			
+
 		} catch (ArithmeticException e) {
 			// ゼロで割った際のエラーメッセージを表示
-			e.printStackTrace();
+			//e.printStackTrace();
+
 			return "error: Please enter a non-zero integer.";
 		}
 
