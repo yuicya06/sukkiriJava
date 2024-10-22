@@ -27,7 +27,7 @@ public class CsvReader {
 		try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));) {
 
 			String line;
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null) {	
 
 				if (line.contains("#")) {
 					;

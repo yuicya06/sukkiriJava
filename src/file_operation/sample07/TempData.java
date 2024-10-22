@@ -18,9 +18,9 @@ public class TempData {
 	}
 	
 	
-	public String strDate(Date date) {
+	public String strDate() {
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-		return fmt.format(date);
+		return fmt.format(getDate());
 	}
 	
 	
