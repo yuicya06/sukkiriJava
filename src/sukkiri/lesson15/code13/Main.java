@@ -13,7 +13,7 @@ public class Main {
 
 		//System.out.println("f:" + f);
 
-		//文字列をDate型に変換 -> parseメソッド
+		//文字列をDate型に変換 -> parseメソ	ッド
 		//文字列からDateインスタンスを生成
 		//指定した書式で解析できなかった場合エラー
 		//SimpleDateFormat型変数.parse()で引数の日時をDate型に変換
