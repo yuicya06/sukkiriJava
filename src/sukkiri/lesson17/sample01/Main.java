@@ -2,6 +2,7 @@ package sukkiri.lesson17.sample01;
 
 import java.io.FileWriter;
 
+/*17章 例外処理*/
 /*17-1*/
 public class Main {
 

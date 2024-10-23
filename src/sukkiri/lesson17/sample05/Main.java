@@ -15,12 +15,14 @@ public class Main {
 		
 		/*FileWriterクラスは、AutoCloseableの
 		 * Closeable、Flushable、Appendable、AutoCloseable
-		 * をじっそうしているので、try-with-resourcesが使用可能
+		 * を実装しているので、try-with-resourcesが使用可能
 		 */
 
 		try (FileWriter fw = new FileWriter("data.txt");) {
 			fw.write("hello!");
-		} catch (Exception e) {
+		} 
+		
+		catch (Exception e) {
 			System.out.println("何らかの例外が発生しました");
 		}
 
