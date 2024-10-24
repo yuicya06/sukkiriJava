@@ -20,7 +20,7 @@ public class Kakeibo {
 		setDate(date);
 		setItem(item);
 		setMemo(memo);
-		setDate(date);
+		setDeposit(deposit);
 		setWithdrawal(withdrawl);
 
 	}

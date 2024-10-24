@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DbOperation {
@@ -65,96 +66,36 @@ public class DbOperation {
 		}
 
 	}
-	
-	
-	
-//	selectメソッド
-//	：引数なし、戻り値はKakeibo型のArrayList
-//	Kakeibo型のArrayListを用意する
-//	家計簿テーブルからすべての列を取得し、Kakeiboコンストラクタの引数に渡し、インスタンス化したものをArrayListに追加し、そのリストを返す。
-	public ArrayList<Kakeibo> select() {
-		
-		ArrayList<Kakeibo>list = new ArrayList<>();
-		
-		// SQL 文の作成
-				String sql = "select 費目 from 家計簿";
-				try (// PostgreSQL に接続
-				 Connection con = DriverManager.getConnection(url, user, password);
-				// SQL を実行するためのインスタンスを生成
-				PreparedStatement pstmt = con.prepareStatement(sql);) {
-				//プレースホルダーに値をセットする
-				//pstmt.setInt(1,380); //（?の番号, セットする値）
-				// SQL の実行結果を格納する
-				ResultSet result = pstmt.executeQuery();
-				
-				while (result.next()) {
-					
-//					String name = result.getString(1);
-//					System.out.println(name);
-					
-					
-					list.add(new Kakeibo(result.getTimestamp("日付"),result.getString("費目"),
-							result.getString("メモ"),result.getInt("入金額"),result.getInt("出金額")));
-					
-					/*
-					// 日付、費目、メモ、入金額、出金額を取得
-					Date colDate = result.getTimestamp("日付");
-					String colItem = result.getString("費目");
-					String colMemo = result.getString("メモ");
-					int colDeposit = result.getInt("入金額");
-					int colWithdrawal = result.getInt("出金額");
-					// 表示
-					System.out.println(df.format(colDate) + ":" + colItem
-					+ ":" + colMemo + ":" + colDeposit + ":" + colWithdrawal);
-					*/
-					
-					
-					}
-				
-				} catch (SQLException e) {
-					// SQLException の例外処理
-					e.printStackTrace();
-					}
-				
-				return list;
-		
-		
-	}
-	
-	public int insert(Kakeibo kakeibo) {
-		
-		int count;
-		
-		// SQL 文の作成
-				String sql = "insert into 家計簿 (日付, 費目, メモ, 入金額, 出金額) values ? , ? , ? , ? , ?";
-				try (// PostgreSQL に接続
-				 Connection con = DriverManager.getConnection(url, user, password);
-				// SQL を実行するためのインスタンスを生成
-				PreparedStatement pstmt = con.prepareStatement(sql);) {
-				//プレースホルダーに値をセットする
-				//pstmt.setInt(1,380); //（?の番号, セットする値）
-					pstmt.executeUpdate("日付", kakeibo.getDate());
-					pstmt.executeUpdate("費目", kakeibo.getItem());
-					pstmt.executeUpdate("メモ", kakeibo.getMemo());
-					pstmt.executeUpdate("入金額", kakeibo.getDeposit());
-					pstmt.executeUpdate("出金額", kakeibo.getWithdrawal());
-				// SQL の実行結果を格納する
-				ResultSet result = pstmt.executeQuery();
-				
-				// 実行結果からデータを取得
-				
-				
-				
-				while (result.next()) {
-					
-//				String name = result.getString(1);
-//				System.out.println(name);
-				
-				String colItem = result.getString("費目");
-				System.out.println(colItem);
-				
 
-				
+	//	selectメソッド
+	//	：引数なし、戻り値はKakeibo型のArrayList
+	//	Kakeibo型のArrayListを用意する
+	//	家計簿テーブルからすべての列を取得し、Kakeiboコンストラクタの引数に渡し、
+	//	インスタンス化したものをArrayListに追加し、そのリストを返す。
+	public ArrayList<Kakeibo> select() {
+
+		ArrayList<Kakeibo> list = new ArrayList<>();
+
+		try (// PostgreSQL に接続
+				Connection con = DriverManager.getConnection(url, user, password);
+				// SQL を実行するためのインスタンスを生成
+				Statement stmt = con.createStatement();) {
+			// SQL 文の作成
+			//			String sql = "select * from 家計簿 where 出金額 >=" + 1000;
+			String sql = "select * from 家計簿";//全件取得
+
+			/*SQL 文を実行し、結果を ResultSet に格納する。*/
+			ResultSet result = stmt.executeQuery(sql);
+
+			// 実行結果からデータを取得
+			while (result.next()) {
+
+				//					String name = result.getString(1);
+				//					System.out.println(name);
+
+				list.add(new Kakeibo(result.getTimestamp("日付"), result.getString("費目"),
+						result.getString("メモ"), result.getInt("入金額"), result.getInt("出金額")));
+
 				/*
 				// 日付、費目、メモ、入金額、出金額を取得
 				Date colDate = result.getTimestamp("日付");
@@ -166,22 +107,78 @@ public class DbOperation {
 				System.out.println(df.format(colDate) + ":" + colItem
 				+ ":" + colMemo + ":" + colDeposit + ":" + colWithdrawal);
 				*/
-				
-				
-				}
-				} catch (SQLException e) {
-				// SQLException の例外処理
-				e.printStackTrace();
-				}
-				
-				
-		
-		
-		
-		return 0;
-		
+
+			}
+
+		} catch (SQLException e) {
+			// SQLException の例外処理
+			e.printStackTrace();
+		}
+
+		return list;
+
 	}
-	
-	
+
+	//	insertメソッド
+	//	　　：引数はKakeibo型(Kakeiboインスタンス)、戻り値はint型
+	//		int型変数countを用意する
+	//	　	PreparedStatementクラスのメソッドを用いて、
+	//	  	引数で受け取ったKakeibo型のフィールドをDBに追加し、
+	//	  	その戻り値を変数countに代入し、その変数countを返す
+
+	public int insert(Kakeibo kb) {
+
+		int count = 0;
+
+		// SQL 文の作成
+		String sql = "insert into 家計簿 values (" + "'" + kb.formatter(kb.getDate()) + "'" + "," + "'" + kb.getItem()
+				+ "'"
+				+ "," + "'" + kb.getMemo() + "'" + "," + kb.getDeposit() + "," + kb.getWithdrawal() + ")";
+
+		try (// PostgreSQL に接続
+				Connection con = DriverManager.getConnection(url, user, password);
+				// SQL を実行するためのインスタンスを生成
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			//プレースホルダーに値をセットする
+			//pstmt.setInt(1,380); //（?の番号, セットする値）
+
+			// SQL の実行結果を格納する
+			int result = pstmt.executeUpdate();
+
+			// 実行結果からデータを取得
+			
+			/*			
+						while (result.next()) {
+			
+						//				String name = result.getString(1);
+						//				System.out.println(name);
+			
+						//				String colItem = result.getString("費目");
+						//				System.out.println(colItem);
+			
+						
+						// 日付、費目、メモ、入金額、出金額を取得
+						Date colDate = result.getTimestamp("日付");
+						String colItem = result.getString("費目");
+						String colMemo = result.getString("メモ");
+						int colDeposit = result.getInt("入金額");
+						int colWithdrawal = result.getInt("出金額");
+						// 表示
+						System.out.println(df.format(colDate) + ":" + colItem
+						+ ":" + colMemo + ":" + colDeposit + ":" + colWithdrawal);
+						
+			
+						}
+						
+			*/			
+		} catch (SQLException e) {
+			// SQLException の例外処理
+			e.printStackTrace();
+			return count;
+		}
+
+		return count += 1;
+
+	}
 
 }
