@@ -1,4 +1,4 @@
-package db_operation.practice_print06;
+package db_operation.practice_print08;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,36 +44,22 @@ public class Main {
 
 		System.out.print("日付 ：");
 		String date = sc.nextLine();
-
-		System.out.print("費目 ：");
-		String item = sc.nextLine();
-
-		System.out.print("メモ ：");
-		String memo = sc.nextLine();
-
-		System.out.print("入金額 ：");
-		int deposit = sc.nextInt();
-		sc.nextLine();
-
-		System.out.print("出金額 ：");
-		int withdrawal = sc.nextInt();
+		java.util.Date util_date = formatter(date);
 
 
 		try {
 
-			Kakeibo kb = new Kakeibo(formatter(date), item, memo, deposit, withdrawal);
-
 			db.connect();
-			
-			int count = db.insert(kb);
+
+			int count = db.delete(util_date);
 
 			db.disconnect();
 
 			if (count == 1) {
-				System.out.println("追加しました。");
+				System.out.println("削除しました");
 
 			} else {
-				System.out.println("追加できませんでした。");
+				System.out.println("削除できませんでした");
 			}
 
 			db.connect();

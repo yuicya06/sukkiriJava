@@ -1,4 +1,4 @@
-package db_operation.practice_print06;
+package db_operation.practice_print07;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -138,7 +138,7 @@ public class DbOperation {
 		 * 
 		 * 
 		 * 
-		 * String sql = "insert into 家計簿 values (?, ?, ?, ?,?);
+		 * String sql = "insert into 家計簿 values (?, ?, ?, ?,?)";
 		 * 
 		 * 
 		 * 
@@ -150,36 +150,33 @@ public class DbOperation {
 			//プレースホルダーに値をセットする
 			//pstmt.setInt(1,380); //（?の番号, セットする値）
 
-			 
-			
 			//java.sql.Dateが必要→日付のlong値が必要→日付はjava.util.Dateが必要
-			
-			 
-			 /*util.dateからsql.dateにするのがめんどくさい
-			  * 
-			  * 
-			  *  ①Kakeiboインスタンスのフィールド変数dateをlong値に変換
-			  *  long long_date = kb.getDate().getTime();
-			  *  
-			  *  
-			  *  ②long値を使って、java.sql.Dateインスタンスを生成
-			  *  java.sql.Date sql_date =  new java.sqlDate(long_date);
-			  *  
-			  *  ③ java.sql.DateのインスタンスをgetDateの第2引数に渡す
-			  *  ps.setDate(1,sql_date);
-			  *  //java.sql.Date sql?date  new java.sql.Date(long_date);
-			  *  
-			  *  
-			  *  
-			 * ps.setString(1, new java.sql.Date(kb.getDate().getTime());
-			 * ps.setString(2,kb.getExpenses());
-			 * ps.setString(3,kb.getMemo());
-			 * ps.setString(4,kb.getDeposit());
-			 * ps.setString(5,kb.getWithdrawal());
+
+			/*util.dateからsql.dateにするのがめんどくさい
 			 * 
 			 * 
-			 * 
-			 */
+			 *  ①Kakeiboインスタンスのフィールド変数dateをlong値に変換
+			 *  long long_date = kb.getDate().getTime();
+			 *  
+			 *  
+			 *  ②long値を使って、java.sql.Dateインスタンスを生成
+			 *  java.sql.Date sql_date =  new java.sqlDate(long_date);
+			 *  
+			 *  ③ java.sql.DateのインスタンスをgetDateの第2引数に渡す
+			 *  ps.setDate(1,sql_date);
+			 *  //java.sql.Date sql?date  new java.sql.Date(long_date);
+			 *  
+			 *  
+			 *  
+			* ps.setString(1, new java.sql.Date(kb.getDate().getTime());
+			* ps.setString(2,kb.getExpenses());
+			* ps.setString(3,kb.getMemo());
+			* ps.setString(4,kb.getDeposit());
+			* ps.setString(5,kb.getWithdrawal());
+			* 
+			* 
+			* 
+			*/
 
 			// SQL の実行結果を格納する
 			int result = pstmt.executeUpdate();
@@ -220,4 +217,107 @@ public class DbOperation {
 
 	}
 
+	public int update(java.util.Date date, int widthDrawl) {
+
+		int count = 0;
+
+		// SQL 文の作成
+		String sql = "update 家計簿 set 出金額 = ? where 日付 = ? ";
+
+		/*
+		 * 
+		 * update 家計簿 set 入金額 =99999;
+		 * 
+		 * String sql = "insert into 家計簿 values (?, ?, ?, ?,?);
+		 * 
+		 * 
+		 * 
+		 */
+		try (// PostgreSQL に接続
+				Connection con = DriverManager.getConnection(url, user, password); //
+				// SQL を実行するためのインスタンスを生成
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+			//プレースホルダーに値をセットする
+			//pstmt.setInt(1,380); //（?の番号, セットする値）
+
+			//java.sql.Dateが必要→日付のlong値が必要→日付はjava.util.Dateが必要
+
+			/*util.dateからsql.dateにするのがめんどくさい
+			 * 
+			 * 
+			 *  ①Kakeiboインスタンスのフィールド変数dateをlong値に変換
+			 *  long long_date = kb.getDate().getTime();
+			 *  
+			 *  
+			 *  ②long値を使って、java.sql.Dateインスタンスを生成
+			 *  java.sql.Date sql_date =  new java.sqlDate(long_date);
+			 *  
+			 *  ③ java.sql.DateのインスタンスをgetDateの第2引数に渡す
+			 *  ps.setDate(1,sql_date);
+			 *  //java.sql.Date sql?date  new java.sql.Date(long_date);
+			 *  
+			 *  
+			 *  
+			* ps.setString(1, new java.sql.Date(kb.getDate().getTime());
+			* ps.setString(2,kb.getExpenses());
+			* ps.setString(3,kb.getMemo());
+			* ps.setString(4,kb.getDeposit());
+			* ps.setString(5,kb.getWithdrawal());
+			* 
+			* 
+			* 
+			*/
+
+			Kakeibo kb = new Kakeibo(date, widthDrawl);
+
+			//long long_date = kb.getDate().getTime();
+			long long_date = date.getTime();
+
+			pstmt.setInt(1, widthDrawl);
+			pstmt.setDate(2, new java.sql.Date(kb.getDate().getTime()));
+
+			// SQL の実行結果を格納する
+			int result = pstmt.executeUpdate();
+
+			// 実行結果からデータを取得
+
+			/*			
+						while (result.next()) {
+			
+						//				String name = result.getString(1);
+						//				System.out.println(name);
+			
+						//				String colItem = result.getString("費目");
+						//				System.out.println(colItem);
+			
+						
+						// 日付、費目、メモ、入金額、出金額を取得
+						Date colDate = result.getTimestamp("日付");
+						String colItem = result.getString("費目");
+						String colMemo = result.getString("メモ");
+						int colDeposit = result.getInt("入金額");
+						int colWithdrawal = result.getInt("出金額");
+						// 表示
+						System.out.println(df.format(colDate) + ":" + colItem
+						+ ":" + colMemo + ":" + colDeposit + ":" + colWithdrawal);
+						
+			
+						}
+						
+			*/
+		} catch (SQLException e) {
+			// SQLException の例外処理
+			e.printStackTrace();
+			return count;
+		}
+
+		return count += 1;
+
+	}
+
+	private Object getWidhdrawal() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 }
