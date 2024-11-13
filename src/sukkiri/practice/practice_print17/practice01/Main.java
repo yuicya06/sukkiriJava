@@ -6,7 +6,7 @@ package sukkiri.practice.practice_print17.practice01;
 //※try-catch構文を用いる
 //public static void main(String[] args) {
 //	int x = 5;
-//        int y = 0;
+//        int y = 0;	
 //        int result = x / y;
 //        System.out.println(result);
 //}
