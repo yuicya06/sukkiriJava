@@ -21,7 +21,8 @@ public class Main {
 			int num = Integer.parseInt(str);
 			System.out.println("入力された整数は" + num + "です。");
 			
-		}catch (Exception e) {
+		}catch (NumberFormatException e) {
+			//e.printStackTrace();
 			System.out.println("整数値ではありません");
 		}
 

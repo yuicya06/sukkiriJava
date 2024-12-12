@@ -14,12 +14,12 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
+			try {
 			System.out.println("id: ");
 			int id = Integer.parseInt(sc.nextLine());
 			System.out.println("name: ");
 			String name = sc.nextLine();
 
-			try {
 				User user = new User(id, name);
 				System.out.println(user.toString());
 				break;

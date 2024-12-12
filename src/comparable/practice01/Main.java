@@ -19,7 +19,7 @@ public class Main {
 			sb.append(n.getValue());
 			System.out.println("Value: " + n.getValue());
 		}
-		
+				
 		//reverseメソッドは逆にするだけなので、
 		//はじめにつかうと、降順にならない
 		//先に昇順にしてから、reverseメソッドを使う
